@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
-import org.springframework.integration.jms.config.JmsChannelFactoryBean;
+import org.springframework.integration.core.MessagingTemplate;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -49,16 +49,10 @@ public class ApplicationConfig {
         return new DirectChannel();
     }
 
-   @Bean(destroyMethod = "destroy")
-    public JmsChannelFactoryBean jmsInboundChannel(ConnectionFactory connectionFactory) {
-        JmsChannelFactoryBean factory = new JmsChannelFactoryBean(true);
-        factory.setConnectionFactory(connectionFactory);
-        factory.setSessionTransacted(true);
-        factory.setDestinationName("order-compta-queue");
-        factory.setPubSubDomain(true);
-        return factory;
-    }
-
+   @Bean
+   public MessagingTemplate messagingTemplate(){
+       return new MessagingTemplate();
+   }
 
     @Bean // Serialize message content to json using TextMessage
     public MessageConverter jacksonJmsMessageConverter() {

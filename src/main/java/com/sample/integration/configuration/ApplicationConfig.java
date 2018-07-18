@@ -4,9 +4,11 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.integration.annotation.Router;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.core.MessagingTemplate;
+import org.springframework.integration.router.ExpressionEvaluatingRouter;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -40,7 +42,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public DirectChannel channelOutput(){
+    public DirectChannel productsToProcessChannel(){
         return new DirectChannel();
     }
 
@@ -49,7 +51,24 @@ public class ApplicationConfig {
         return new DirectChannel();
     }
 
-   @Bean
+    @Bean
+    public DirectChannel europeRoutedChannel(){
+        return new DirectChannel();
+    }
+
+    @Bean
+    public DirectChannel usRoutedChannel(){
+        return new DirectChannel();
+    }
+
+
+    @Bean
+    public DirectChannel notRoutedMessagesChannel(){
+        return new DirectChannel();
+    }
+
+
+    @Bean
    public MessagingTemplate messagingTemplate(){
        return new MessagingTemplate();
    }

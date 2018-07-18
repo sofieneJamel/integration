@@ -17,6 +17,4 @@ public class Product implements Serializable {
     private Integer price;
     private Integer quantity;
     private String zone;
-
-
 }

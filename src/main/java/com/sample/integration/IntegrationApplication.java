@@ -28,5 +28,13 @@ public class IntegrationApplication {
 					return messagePostProcessor;
 
 				});
+
+        jmsTemplate.convertAndSend("order-compta-queue",
+                new Product("code","label",120,25,"EUROPE"),
+                messagePostProcessor -> {
+                    messagePostProcessor.setStringProperty("source","ASIA");
+                    return messagePostProcessor;
+
+                });
 	}
 }

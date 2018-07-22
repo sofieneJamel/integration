@@ -1,4 +1,4 @@
-package com.sample.integration.business;
+package com.sample.integration.model;
 
 
 import lombok.AllArgsConstructor;
